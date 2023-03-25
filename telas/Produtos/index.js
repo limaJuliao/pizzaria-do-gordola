@@ -9,7 +9,7 @@ import { View, Text, StyleSheet } from "react-native";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import ModalAdicionarProduto from "../../componentes/ModalCriarProduto";
 import { useEffect, useState } from "react";
-import { obterTodos as obterTodosProdutos } from "../../services/produtoService";
+import { deletarProduto, obterTodosProdutos } from "../../services/produtoService";
 
 export default function ProdutosScreen({ navigation }) {
   const [produtos, setProdutos] = useState([]);
@@ -28,26 +28,38 @@ export default function ProdutosScreen({ navigation }) {
           <Text style={style.titulo}>Produtos</Text>
         </View>
         <ModalAdicionarProduto />
-        {
-          produtos.map((value) =>{
-            return (
+        {produtos.map((value) => {
+          return (
+            <Flex>
               <ListItem
                 title={value.descricao}
-                key={value.produtoId}
+                key={`listItem-${value.produtoId}`}
                 trailing={(props) => (
-                  <Flex direction="row" key={"f_"+value.id}>
-                    <Icon
-                      name="pencil"
-                      {...props}
-                      onPress={() => console.log("Editando...")}
+                  <Flex direction="row" key={`flex-${value.produtoId}`}>
+                    <IconButton
+                      key={`iconButton-update-${value.produtoId}`}
+                      icon={(props) => <Icon name="pencil" {...props} />}
+                      style={{ width: 25 }}
+                      onPress={() => console.log(`update ${value.produtoId}`)}
                     />
-                    <Icon name="delete" {...props} style={{ color: "red" }} onPress={console.log("Deletando...")}/>
+                    <IconButton
+                      key={`iconButton-delete-${value.produtoId}`}
+                      icon={(props) => <Icon name="delete" {...props} />}
+                      style={{ color: "red" }}
+                      onPress={() => {
+                        deletarProduto(value.produtoId).then((resolve) => {
+                          obterTodosProdutos().then((response) =>
+                            setProdutos(response)
+                          );
+                        });
+                      }}
+                    />
                   </Flex>
                 )}
               />
-            )
-          })
-        }
+            </Flex>
+          );
+        })}
       </View>
     </Provider>
   );

@@ -27,7 +27,7 @@ export function inserirProduto(produto) {
   });
 }
 
-export function obterTodos() {
+export function obterTodosProdutos() {
   console.log("Obtendo todos produtos.");
 
   return new Promise((resolve, reject) => {
@@ -64,5 +64,27 @@ export function obterTodos() {
         );
       }
     );
+  });
+}
+
+export function deletarProduto(id){  
+  console.log(`Excluindo produto ${id}`);
+
+  return new Promise((resolve, reject) => {
+      myConnection().transaction(
+      tx => {
+          tx.executeSql(`delete from ${produtoTableName} where produtoId=?;`, [id], (_, { rowsAffected }) => {
+              console.log(`Produto ${id} excluido.`);
+          });
+          
+          resolve(true);
+      },
+      (error) => {
+          console.log(`Erro ao exluir produto ${id}`, error);
+          resolve(false);
+      },
+      () => {
+          console.log("Produto excluido com sucesso.");
+      });
   });
 }
