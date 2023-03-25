@@ -19,7 +19,7 @@ export default function ProdutosScreen({ navigation }) {
     .then((response) => {
         setProdutos(response);
     });
-},[]);
+},[produtos]);
 
   return (
     <Provider>
