@@ -1,13 +1,15 @@
-import 'react-native-gesture-handler';
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Appbar, Menu } from 'react-native-paper';
-import HomeScreen from './telas/Home';
-import FuncionariosScreen from './telas/Funcionario';
-import ProdutosScreen from './telas/Produtos';
+import "react-native-gesture-handler";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { Appbar, Menu } from "react-native-paper";
+import HomeScreen from "./telas/Home";
+import FuncionariosScreen from "./telas/Funcionario";
+import ProdutosScreen from "./telas/Produtos";
+import { createDataBase } from "./services/data/dbCreator";
 
 const Stack = createStackNavigator();
+createDataBase();
 
 export default function App() {
   return (
@@ -16,7 +18,8 @@ export default function App() {
         initialRouteName="Home"
         screenOptions={{
           header: (props) => <CustomNavigationBar {...props} />,
-        }}>
+        }}
+      >
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Funcionarios" component={FuncionariosScreen} />
         <Stack.Screen name="Produtos" component={ProdutosScreen} />
@@ -24,7 +27,6 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
 
 function CustomNavigationBar({ navigation, back }) {
   const [visible, setVisible] = React.useState(false);
@@ -40,11 +42,28 @@ function CustomNavigationBar({ navigation, back }) {
           visible={visible}
           onDismiss={closeMenu}
           anchor={
-            <Appbar.Action icon="menu" color="white" onPress={openMenu} />
-          }>
-          <Menu.Item onPress={() => {console.log('Option 1 was pressed')}} title="Option 1" />
-          <Menu.Item onPress={() => {console.log('Option 2 was pressed')}} title="Option 2" />
-          <Menu.Item onPress={() => {console.log('Option 3 was pressed')}} title="Option 3" disabled />
+            <Appbar.Action icon="menu" color="black" onPress={openMenu} />
+          }
+        >
+          <Menu.Item
+            onPress={() => {
+              console.log("Option 1 was pressed");
+            }}
+            title="Option 1"
+          />
+          <Menu.Item
+            onPress={() => {
+              console.log("Option 2 was pressed");
+            }}
+            title="Option 2"
+          />
+          <Menu.Item
+            onPress={() => {
+              console.log("Option 3 was pressed");
+            }}
+            title="Option 3"
+            disabled
+          />
         </Menu>
       ) : null}
     </Appbar.Header>
