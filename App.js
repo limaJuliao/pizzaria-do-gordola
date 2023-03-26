@@ -10,6 +10,8 @@ import HomeScreen from "./telas/Home";
 import ClienteScreen from "./telas/Cliente";
 import FuncionariosScreen from "./telas/Funcionario";
 import ProdutosScreen from "./telas/Produtos";
+import CarrinhoScreen from "./telas/Carrinho";
+import CompraEfetivadaScreen from "./telas/CompraEfetivada";
 
 const Stack = createStackNavigator();
 createDataBase();
@@ -27,6 +29,8 @@ export default function App() {
         <Stack.Screen name="Funcionarios" component={FuncionariosScreen} />
         <Stack.Screen name="Cliente" component={ClienteScreen} />
         <Stack.Screen name="Produtos" component={ProdutosScreen} />
+        <Stack.Screen name="Carrinho" component={CarrinhoScreen} />
+        <Stack.Screen name="CompraEfetivada" component={CompraEfetivadaScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
