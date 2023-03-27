@@ -2,12 +2,12 @@ import "react-native-gesture-handler";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Appbar, Menu } from "react-native-paper";
+import { Appbar, Menu, Provider } from "react-native-paper";
 import { createDataBase } from "./services/data/dbCreator";
 import { useState } from "react";
 
 import HomeScreen from "./telas/Home";
-import ClienteScreen from "./telas/Cliente";
+import NovoPedidoScreen from "./telas/Cliente";
 import FuncionariosScreen from "./telas/Funcionario";
 import ProdutosScreen from "./telas/Produtos";
 import CarrinhoScreen from "./telas/Carrinho";
@@ -18,21 +18,26 @@ createDataBase();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          header: (props) => <CustomNavigationBar {...props} />,
-        }}
-      >
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Funcionarios" component={FuncionariosScreen} />
-        <Stack.Screen name="Cliente" component={ClienteScreen} />
-        <Stack.Screen name="Produtos" component={ProdutosScreen} />
-        <Stack.Screen name="Carrinho" component={CarrinhoScreen} />
-        <Stack.Screen name="CompraEfetivada" component={CompraEfetivadaScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="NovoPedido"
+          screenOptions={{
+            header: (props) => <CustomNavigationBar {...props} />,
+          }}
+        >
+          <Stack.Screen name="NovoPedido" component={NovoPedidoScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Funcionarios" component={FuncionariosScreen} />
+          <Stack.Screen name="Produtos" component={ProdutosScreen} />
+          <Stack.Screen name="Carrinho" component={CarrinhoScreen} />
+          <Stack.Screen
+            name="CompraEfetivada"
+            component={CompraEfetivadaScreen}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
@@ -42,7 +47,7 @@ function CustomNavigationBar({ navigation, back }) {
   const closeMenu = () => setVisible(false);
 
   return (
-    <Appbar.Header>
+    <Appbar.Header >
       {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
       <Appbar.Content title="PIZZARIA DO GORDOLA" />
       {!back ? (
@@ -55,22 +60,15 @@ function CustomNavigationBar({ navigation, back }) {
         >
           <Menu.Item
             onPress={() => {
-              console.log("Option 1 was pressed");
+              navigation.navigate("NovoPedido");
             }}
-            title="Option 1"
+            title="Novo Pedido"
           />
           <Menu.Item
             onPress={() => {
-              console.log("Option 2 was pressed");
+              navigation.navigate("Produtos");
             }}
-            title="Option 2"
-          />
-          <Menu.Item
-            onPress={() => {
-              console.log("Option 3 was pressed");
-            }}
-            title="Option 3"
-            disabled
+            title="Produtos"
           />
         </Menu>
       ) : null}

@@ -7,27 +7,25 @@ export default function CarrinhoScreen({ route, navigation }) {
   async function addVenda() {
     console.log(`Efetivando compra.`);
     const data = new Date();
-    vendaId = await inserirVenda({ data });
+    vendaId = await inserirVenda({ data }, carrinho);
 
     navigation.navigate("CompraEfetivada", { vendaId, data, carrinho });
   }
 
   return (
     <Provider>
-      {carrinho.map((value) => (
-        <Flex key={`flex-${value.produtoId}`}>
-          <ListItem
-            key={`listItem-${value.produtoId}`}
-            title={value.descricao}
-          />
-        </Flex>
-      ))}
       <Button
         title="Concluir compra"
+        style={{ margin: 16 }}
         color="red"
         tintColor="white"
         onPress={async () => addVenda()}
       />
+      {carrinho.map((value, index) => (
+        <Flex key={`flex-${index}`}>
+          <ListItem key={`listItem-${index}`} title={value.descricao} />
+        </Flex>
+      ))}
     </Provider>
   );
 }

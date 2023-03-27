@@ -1,27 +1,33 @@
-import { Button, Stack } from "@react-native-material/core";
-import { View, Text, StyleSheet } from "react-native";
+import { Button, Flex, Stack, Text } from "@react-native-material/core";
+import { View, StyleSheet } from "react-native";
 
 export default function HomeScreen({ navigation }) {
   return (
-    <View style={style.container}>
-      <Stack spacing={50}>
-        <View style={style.caixaTitulo}>
-          <Text style={style.titulo}>Home</Text>
-        </View>
-        <Button
-          color="red"
-          tintColor="white"
-          title="Funcionario"
-          onPress={() => navigation.navigate("Funcionarios")}
-        />
-        <Button
-          color="red"
-          tintColor="white"
-          title="Cliente"
-          onPress={() => navigation.navigate("Cliente")}
-        />
-      </Stack>
-    </View>
+    <Flex center>
+      <Flex>
+        <Stack spacing={150}>
+          <Flex>
+            <Text variant="h2">Home</Text>
+          </Flex>
+          <Flex>
+            <Stack spacing={30}>
+              <Button
+                color="red"
+                tintColor="white"
+                title="Funcionario"
+                onPress={() => navigation.navigate("Funcionarios")}
+              />
+              <Button
+                color="red"
+                tintColor="white"
+                title="Cliente"
+                onPress={() => navigation.navigate("Cliente")}
+              />
+            </Stack>
+          </Flex>
+        </Stack>
+      </Flex>
+    </Flex>
   );
 }
 
@@ -29,7 +35,7 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    // justifyContent: "center",
   },
   titulo: {
     fontSize: 30,
