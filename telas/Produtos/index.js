@@ -23,7 +23,10 @@ import {
   inserirProduto,
   obterTodosProdutos,
 } from "../../services/produtoService";
+
+import { obterCategorias } from "../../services/categoriaService";
 import Produto from "../../entities/produto";
+import DropDownPicker from "react-native-dropdown-picker";
 
 export default function ProdutosScreen({ navigation }) {
   const [produtos, setProdutos] = useState([]);
@@ -33,10 +36,25 @@ export default function ProdutosScreen({ navigation }) {
   const [precoUnitario, setPrecoUnitario] = useState("");
   const [categoriaId, setCategoriaId] = useState(1);
 
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([]);
+
   useEffect(() => {
     obterTodosProdutos().then((response) => {
       setProdutos(response);
     });
+
+    obterCategorias().then((response) =>
+      setItems(
+        response.map((x) => {
+          return {
+            label: x.descricao,
+            value: x.categoriaId,
+          };
+        })
+      )
+    );
   }, []);
 
   return (
@@ -58,7 +76,7 @@ export default function ProdutosScreen({ navigation }) {
           </Flex>
         </Flex>
         <Spacer />
-        <Flex style={{margin: 25}}>
+        <Flex style={{ margin: 25 }}>
           {produtos.map((value, index) => {
             return (
               <Flex key={index}>
@@ -120,6 +138,15 @@ export default function ProdutosScreen({ navigation }) {
                   setPrecoUnitario(precoUnitario)
                 }
               />
+              <DropDownPicker
+                open={open}
+                value={value}
+                items={items}
+                setOpen={setOpen}
+                setValue={setValue}
+                setItems={setItems}
+                onChangeValue={(val) => setCategoriaId(val)}
+              />
             </Stack>
           </DialogContent>
           <DialogActions>
@@ -148,7 +175,7 @@ export default function ProdutosScreen({ navigation }) {
   function reiniciarPropriedadesProduto() {
     setDescricao("");
     setPrecoUnitario("");
-    setCategoriaId(1);
+    setCategoriaId(0);
   }
 
   async function adicionarEditarProduto() {
@@ -172,6 +199,8 @@ export default function ProdutosScreen({ navigation }) {
         categoriaId
       );
 
+      console.log(`meu teste categoria`, produto)
+
       editarProduto(produto).then(() => {
         reiniciarPropriedadesProduto();
 
@@ -190,12 +219,18 @@ export default function ProdutosScreen({ navigation }) {
     setDescricao("");
     setPrecoUnitario("");
     setProdutoId(0);
+    setCategoriaId(0);
+    setValue(null);
   }
 
   function prepararEdicao(value) {
+    console.log(value)
+    setCategoriaId(value.categoriaId);
     setProdutoId(value.produtoId);
     setDescricao(value.descricao);
     setPrecoUnitario(value.precoUnitario.toString());
     VisibleModalEdit(true);
+
+    setValue(value.categoriaId)
   }
 }
