@@ -105,7 +105,11 @@ function obterVendaProduto(vendaId, produtoId) {
   return new Promise((resolve) => {
     myConnection().transaction(
       (tx) => {
-        tx.executeSql(`select * from ${vendaProdutoTableName} join ${produtoTableName} on ${vendaProdutoTableName}.produtoId=${vendaProdutoTableName}.produtoId where vendaId=?`, [vendaId], (_, { rows }) => {
+        tx.executeSql(`
+          select * from ${vendaProdutoTableName} 
+            join ${produtoTableName} 
+              on ${vendaProdutoTableName}.produtoId = ${produtoTableName}.produtoId where vendaId=?`,
+               [vendaId], (_, { rows }) => {
           var vendaProdutos = [];
 
           for (let i = 0; i < rows.length; i++) {

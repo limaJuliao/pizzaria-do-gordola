@@ -57,7 +57,7 @@ export default function VendasScreen({ navigation }) {
                     key={index}
                     onPress={() => exibeDetatlhedoPedido(value)}
                   >
-                    <Flex direction="row" key={index}>
+                    <Flex direction="row">
                       <Flex center>
                         <Text variant="h6">Pedido N: {value.pedidoId}</Text>
                       </Flex>

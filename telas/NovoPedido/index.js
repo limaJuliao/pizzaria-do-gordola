@@ -25,7 +25,7 @@ export default function NovoPedidoScreen({ navigation }) {
       obterTodosProdutos().then((response) => {
         setProdutos(response);
       });
-  
+
       obterCategorias().then((r) => {
         setCategorias(r);
       });
@@ -46,9 +46,9 @@ export default function NovoPedidoScreen({ navigation }) {
               icon={(props) => (
                 <Icon name="cart" {...props} title="Concluir pedito" />
               )}
-              onPress={() =>
-                navigation.navigate("Carrinho", { carrinho, setCarrinho })
-              }
+              onPress={() => {
+                navigation.navigate("Carrinho", { carrinho, setCarrinho });
+              }}
             />
           </Flex>
           <Spacer />

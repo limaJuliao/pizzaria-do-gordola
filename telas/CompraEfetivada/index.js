@@ -34,9 +34,9 @@ export default function CompraEfetivadaScreen({ route, navigation }) {
               </Flex>
               <Flex>
                 {carrinho.map((x, index) => (
-                  <Flex center direction="row" style={{ margin: 10 }}>
+                  <Flex center direction="row" style={{ margin: 10 }} key={index}>
                     <Flex>
-                      <Text variant="h6" key={`text-${index}`}>
+                      <Text variant="h6" >
                         {x.descricao}
                       </Text>
                     </Flex>
