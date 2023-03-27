@@ -1,3 +1,6 @@
 export default class Categoria{
-    constructor(descricao){}
+    constructor(categoriaId, descricao){
+        this.categoriaId = categoriaId;
+        this.descricao = descricao;
+    }
 }

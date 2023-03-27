@@ -13,6 +13,7 @@ import ProdutosScreen from "./telas/Produtos";
 import CarrinhoScreen from "./telas/Carrinho";
 import CompraEfetivadaScreen from "./telas/CompraEfetivada";
 import VendasScreen from "./telas/Vendas";
+import CategoriasScreen from "./telas/Categoria";
 
 const Stack = createStackNavigator();
 createDataBase();
@@ -33,6 +34,7 @@ export default function App() {
           <Stack.Screen name="Produtos" component={ProdutosScreen} />
           <Stack.Screen name="Carrinho" component={CarrinhoScreen} />
           <Stack.Screen name="Vendas" component={VendasScreen} />
+          <Stack.Screen name="Categorias" component={CategoriasScreen} />
           <Stack.Screen
             name="CompraEfetivada"
             component={CompraEfetivadaScreen}
@@ -77,6 +79,12 @@ function CustomNavigationBar({ navigation, back }) {
               navigation.navigate("Vendas");
             }}
             title="Pedidos"
+          />
+          <Menu.Item
+            onPress={() => {
+              navigation.navigate("Categorias");
+            }}
+            title="Categorias"
           />
         </Menu>
       ) : null}
