@@ -58,12 +58,13 @@ export default function ProdutosScreen({ navigation }) {
           </Flex>
         </Flex>
         <Spacer />
-        <Flex>
+        <Flex style={{margin: 25}}>
           {produtos.map((value, index) => {
             return (
               <Flex key={index}>
                 <ListItem
                   title={value.descricao}
+                  secondaryText={value.precoUnitario}
                   key={`listItem-${index}`}
                   trailing={(props) => (
                     <Flex direction="row" key={`flex-${index}`}>

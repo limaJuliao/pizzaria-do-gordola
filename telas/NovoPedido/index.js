@@ -13,7 +13,7 @@ import { obterTodosProdutos } from "../../services/produtoService";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default function ClienteScreen({ navigation }) {
+export default function NovoPedidoScreen({ navigation }) {
   const [produtos, setProdutos] = useState([]);
   const [carrinho, setCarrinho] = useState([]);
 
@@ -28,13 +28,13 @@ export default function ClienteScreen({ navigation }) {
       <Flex center>
         <Flex direction="row">
           <Spacer />
-          <Flex>
-            <Text variant="h4">Escolha seus itens</Text>
+          <Flex center>
+            <Text variant="h4">Item do pedido</Text>
           </Flex>
           <Spacer />
           <Flex>
             <IconButton
-              icon={(props) => <Icon name="cart" {...props} />}
+              icon={(props) => <Icon name="cart" {...props} title="Concluir pedito"/>}
               onPress={() =>
                 navigation.navigate("Carrinho", { carrinho, setCarrinho })
               }
@@ -43,24 +43,26 @@ export default function ClienteScreen({ navigation }) {
           <Spacer />
         </Flex>
       </Flex>
-      <Flex>
-          {produtos.map((value, index) => {
-            return (
-              <Flex key={index}>
-                <TouchableOpacity
-                  onPress={() => {
-                    setCarrinho([...carrinho, value]);
-                    Alert.alert(`Produto adicionado no carrinho.`);
-                  }}
-                >
-                  <ListItem
-                    title={`${value.descricao} - R$${value.precoUnitario}`}
-                    key={`listItem-${value.produtoId}`}
-                  />
-                </TouchableOpacity>
-              </Flex>
-            );
-          })}
+      <Flex style={{ margin: 25 }}>
+        {produtos.map((value, index) => {
+          return (
+            <Flex key={index}>
+              <TouchableOpacity
+                onPress={() => {
+                  setCarrinho([...carrinho, value]);
+                  Alert.alert(`Produto adicionado no carrinho.`);
+                }}
+              >
+                <ListItem
+                  title={`${value.descricao}`}
+                  secondaryText={value.precoUnitario}
+                  key={`listItem-${value.produtoId}`}
+                  trailing={(props) => <Icon name="plus" {...props} />}
+                />
+              </TouchableOpacity>
+            </Flex>
+          );
+        })}
       </Flex>
     </Flex>
   );

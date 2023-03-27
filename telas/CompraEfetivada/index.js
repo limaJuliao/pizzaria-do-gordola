@@ -1,36 +1,64 @@
-import { Box, Flex, Provider, Spacer, Text } from "@react-native-material/core";
+import {
+  Box,
+  Button,
+  Flex,
+  Provider,
+  Spacer,
+  Stack,
+  Text,
+} from "@react-native-material/core";
 
 export default function CompraEfetivadaScreen({ route, navigation }) {
-  const { vendaId, data, carrinho } = route.params;
+  const { vendaId, data, carrinho , setCarrinho} = route.params;
 
   return (
     <Provider>
-      <Flex fill wrap>
-        <Flex direction="row" center>
-          <Text variant="h4">Compra realizada com sucesso</Text>
-        </Flex>
-        <Flex center>
-          <Spacer />
-        </Flex>
-        <Flex center>
-          <Text>Código da compra: {vendaId.toString()}</Text>
-        </Flex>
-        <Flex center>
-          <Text>Data: {data.toLocaleDateString("pt-BR")}</Text>
-        </Flex>
-
-        {carrinho.map((x, index) => (
-          <Flex center direction="row">
-            <Box>
-            <Text variant="h6" key={`text-${index}`}>{x.descricao}</Text>
-
-            </Box>
-            <Box>
-
-            <Text variant="h7" >{x.precoUnitario}</Text>
-            </Box>
+      <Flex fill>
+        <Stack spacing={20}>
+          <Flex direction="row" center>
+            <Text variant="h4">Compra realizada com sucesso</Text>
           </Flex>
-        ))}
+          <Flex center>
+            <Spacer />
+          </Flex>
+          <Flex center>
+            <Text variant="h5">Código da compra: {vendaId.toString()}</Text>
+          </Flex>
+          <Flex center>
+            <Text variant="h5">Data: {data.toLocaleDateString("pt-BR")}</Text>
+          </Flex>
+          <Flex>
+            <Stack spacing={10}>
+              <Flex center>
+                <Text variant="h5">Itens:</Text>
+              </Flex>
+              <Flex>
+                {carrinho.map((x, index) => (
+                  <Flex center direction="row" style={{ margin: 10 }}>
+                    <Flex>
+                      <Text variant="h6" key={`text-${index}`}>
+                        {x.descricao}
+                      </Text>
+                    </Flex>
+                    <Spacer />
+                    <Flex>
+                      <Text variant="h7">{x.precoUnitario}</Text>
+                    </Flex>
+                  </Flex>
+                ))}
+              </Flex>{" "}
+              <Flex>
+                <Button
+                  title="Novo Pedido"
+                  style={{ margin: 16 }}
+                  color="red"
+                  tintColor="white"
+                  onPress={async () =>{ navigation.navigate("NovoPedido"); setCarrinho([])}}
+                />
+              </Flex>
+            </Stack>
+          </Flex>
+        </Stack>
       </Flex>
     </Provider>
   );

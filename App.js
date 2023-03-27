@@ -7,7 +7,7 @@ import { createDataBase } from "./services/data/dbCreator";
 import { useState } from "react";
 
 import HomeScreen from "./telas/Home";
-import NovoPedidoScreen from "./telas/Cliente";
+import NovoPedidoScreen from "./telas/NovoPedido";
 import FuncionariosScreen from "./telas/Funcionario";
 import ProdutosScreen from "./telas/Produtos";
 import CarrinhoScreen from "./telas/Carrinho";
