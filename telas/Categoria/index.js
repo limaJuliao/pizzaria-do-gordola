@@ -141,7 +141,7 @@ export default function CategoriasScreen({ navigation }) {
   async function adicionarEditarCategoria() {
     if (!categoriaId) {
       const categoria = new Categoria(null, descricao);
-      console.log(categoria);
+      // console.log(categoria);
       inserirCategoria(categoria).then(() => {
         reiniciarPropriedadesCategoria();
 

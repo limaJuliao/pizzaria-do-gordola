@@ -23,7 +23,7 @@ export const vendaProdutoTableName = new VendaProduto().constructor.name;
 export function createDataBase() {
   let connection = myConnection();
 
-  console.log("Criando bando de dados...");
+  // console.log("Criando bando de dados...");
   connection.transaction(
     (tx) => {
       tx.executeSql(`
@@ -56,6 +56,6 @@ export function createDataBase() {
           FOREIGN KEY(produtoId) REFERENCES ${produtoTableName}(produtoId));`);
     },
     (erro) => console.log(`Erro ao criar banco!`, erro),
-    () => console.log(`Banco criado.`)
+    // () => console.log(`Banco criado.`)
   );
 }

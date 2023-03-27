@@ -12,7 +12,6 @@ export default function CarrinhoScreen({ route, navigation }) {
   const { carrinho, setCarrinho } = route.params;
 
   async function addVenda() {
-    console.log(`Efetivando compra.`);
     const data = new Date();
     vendaId = await inserirVenda({ data }, carrinho);
 
@@ -22,6 +21,7 @@ export default function CarrinhoScreen({ route, navigation }) {
       carrinho,
       setCarrinho,
     });
+    setCarrinho([])
   }
 
   return (
@@ -40,7 +40,7 @@ export default function CarrinhoScreen({ route, navigation }) {
           />
         </Flex>
         <Flex style={{ margin: 25 }}>
-          {carrinho.map((value, index) => (
+          {carrinho?.map((value, index) => (
             <ListItem
               title={`${value.descricao}`}
               secondaryText={value.precoUnitario}

@@ -31,7 +31,7 @@ export default function VendasScreen({ navigation }) {
   function exibeDetatlhedoPedido(pedido) {
     setCurrentPedido(pedido);
     setVisible(true);
-    console.log(pedido.data);
+    // console.log(pedido.data);
   }
 
   var total = currentPedido.pedidoProdutos?.reduce(getTotal, 0);

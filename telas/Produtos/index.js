@@ -199,7 +199,7 @@ export default function ProdutosScreen({ navigation }) {
         categoriaId
       );
 
-      console.log(`meu teste categoria`, produto)
+      // console.log(`meu teste categoria`, produto);
 
       editarProduto(produto).then(() => {
         reiniciarPropriedadesProduto();
@@ -224,13 +224,13 @@ export default function ProdutosScreen({ navigation }) {
   }
 
   function prepararEdicao(value) {
-    console.log(value)
+    // console.log(value);
     setCategoriaId(value.categoriaId);
     setProdutoId(value.produtoId);
     setDescricao(value.descricao);
     setPrecoUnitario(value.precoUnitario.toString());
     VisibleModalEdit(true);
 
-    setValue(value.categoriaId)
+    setValue(value.categoriaId);
   }
 }

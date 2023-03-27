@@ -1,8 +1,8 @@
 import { categoriaTableName, myConnection } from "./data/dbCreator";
 
 export function inserirCategoria(categoria) {
-  console.log("iniciando inserção de categoria.");
-  console.log(categoria);
+  // console.log("iniciando inserção de categoria.");
+  // console.log(categoria);
 
   return new Promise((resolve) => {
     myConnection().transaction(
@@ -11,25 +11,25 @@ export function inserirCategoria(categoria) {
           `insert into ${categoriaTableName} (descricao) values(?);`,
           [categoria.descricao],
           (_, { insertId }) => {
-            console.log(`id do novo categoria inserted: ${insertId}`);
+            // console.log(`id do novo categoria inserted: ${insertId}`);
           }
         );
 
         resolve(true);
       },
       (error) => {
-        console.log(`erro ao inserir novo categoria: ${error}`);
+        // console.log(`erro ao inserir novo categoria: ${error}`);
         resolve(false);
       },
       () => {
-        console.log("categoria criado com sucesso.");
+        // console.log("categoria criado com sucesso.");
       }
     );
   });
 }
 
 export function obterCategorias() {
-  console.log("Obtendo todos categorias.");
+  // console.log("Obtendo todos categorias.");
 
   return new Promise((resolve) => {
     myConnection().transaction(
@@ -49,22 +49,22 @@ export function obterCategorias() {
               categorias.push(categoria);
             }
 
-            console.log(
-              "query de todos os categorias foi realizada! Qtde. categorias: " +
-                categorias.length
-            );
+            // console.log(
+            //   "query de todos os categorias foi realizada! Qtde. categorias: " +
+            //     categorias.length
+            // );
             resolve(categorias);
           }
         );
       },
       (error) => {
-        console.log("erro ao selecionar todos os categorias: " + error);
+        // console.log("erro ao selecionar todos os categorias: " + error);
         resolve([]);
       },
       () => {
-        console.log(
-          "transação de recuperação dos categorias executada com sucesso :)"
-        );
+        // console.log(
+        //   "transação de recuperação dos categorias executada com sucesso :)"
+        // );
       }
     );
   });
@@ -80,25 +80,25 @@ export function deletarCategoria(id) {
           `delete from ${categoriaTableName} where categoriaId=?;`,
           [id],
           (_, { rowsAffected }) => {
-            console.log(`categoria ${id} excluido.`);
+            // console.log(`categoria ${id} excluido.`);
           }
         );
 
         resolve(true);
       },
       (error) => {
-        console.log(`Erro ao exluir categoria ${id}`, error);
+        // console.log(`Erro ao exluir categoria ${id}`, error);
         resolve(false);
       },
       () => {
-        console.log("categoria excluido com sucesso.");
+        // console.log("categoria excluido com sucesso.");
       }
     );
   });
 }
 
 export function editarCategoria(categoria) {
-  console.log("iniciando update de categoria.", categoria);
+  // console.log("iniciando update de categoria.", categoria);
 
   return new Promise((resolve) => {
     myConnection().transaction(
@@ -107,20 +107,20 @@ export function editarCategoria(categoria) {
           `update ${categoriaTableName} set descricao=? where categoriaId=?;`,
           [categoria.descricao, categoria.categoriaId],
           (_, { rowsAffected }) => {
-            console.log("categoria alterado");
+            // console.log("categoria alterado");
           }
         );
 
         resolve(true);
       },
       (error) => {
-        console.log("erro ao alterar o categoria: " + error);
+        // console.log("erro ao alterar o categoria: " + error);
         resolve(false);
       },
       () => {
-        console.log(
-          "transação de alteração de categoria realizada com sucesso :)"
-        );
+        // console.log(
+        //   "transação de alteração de categoria realizada com sucesso :)"
+        // );
       }
     );
   });

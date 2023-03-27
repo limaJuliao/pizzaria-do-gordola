@@ -6,7 +6,7 @@ import {
 } from "./data/dbCreator";
 
 export function inserirVenda(venda, carrinho) {
-  console.log(`Iniciando inserção da venda.`);
+  // console.log(`Iniciando inserção da venda.`);
 
   return new Promise((resolve, reject) => {
     myConnection().transaction(
@@ -15,7 +15,7 @@ export function inserirVenda(venda, carrinho) {
           `insert into ${vendaTableName} (data) values(?);`,
           [venda.data.toString()],
           (_, { insertId }) => {
-            console.log(`id da nova venda inserida: ${insertId}`);
+            // console.log(`id da nova venda inserida: ${insertId}`);
             inserirVendaProduto(carrinho, insertId);
             resolve(insertId);
           }
@@ -23,18 +23,18 @@ export function inserirVenda(venda, carrinho) {
       },
 
       (error) => {
-        console.log(`erro ao inserir venda: ${error}`);
+        // console.log(`erro ao inserir venda: ${error}`);
         resolve(false);
       },
       () => {
-        console.log("Venda criada com sucesso.");
+        // console.log("Venda criada com sucesso.");
       }
     );
   });
 }
 
 function inserirVendaProduto(carrinho, vendaId) {
-  console.log(`Iniciando inserção da vendaProduto.`);
+  // console.log(`Iniciando inserção da vendaProduto.`);
 
   return new Promise((resolve) => {
     myConnection().transaction(
@@ -44,7 +44,7 @@ function inserirVendaProduto(carrinho, vendaId) {
             `insert into ${vendaProdutoTableName} (vendaId, produtoId, quantidade) values(?, ?, ?);`,
             [vendaId, produto.produtoId, 1],
             (_, { insertId }) => {
-              console.log(`id da nova vendaProduto inserida: ${insertId}`);
+              // console.log(`id da nova vendaProduto inserida: ${insertId}`);
               resolve(insertId);
             }
           );
@@ -52,18 +52,18 @@ function inserirVendaProduto(carrinho, vendaId) {
       },
 
       (error) => {
-        console.log(`erro ao inserir venda: ${error}`);
+        // console.log(`erro ao inserir venda: ${error}`);
         resolve(false);
       },
       () => {
-        console.log("Venda criada com sucesso.");
+        // console.log("Venda criada com sucesso.");
       }
     );
   });
 }
 
 export function obterPedidos() {
-  console.log("Obtendo todos pedidos.");
+  // console.log("Obtendo todos pedidos.");
 
   return new Promise((resolve) => {
     myConnection().transaction(
@@ -81,21 +81,21 @@ export function obterPedidos() {
             pedidos.push(pedido);
           }
 
-          console.log(
-            "query de todos os produtos foi realizada! Qtde. produtos: " +
-              pedidos.length
-          );
+          // console.log(
+          //   "query de todos os produtos foi realizada! Qtde. produtos: " +
+          //     pedidos.length
+          // );
           resolve(pedidos);
         });
       },
       (error) => {
-        console.log("erro ao selecionar todos os produtos: " + error);
+        // console.log("erro ao selecionar todos os produtos: " + error);
         resolve([]);
       },
       () => {
-        console.log(
-          "transação de recuperação dos produtos executada com sucesso :)"
-        );
+        // console.log(
+        //   "transação de recuperação dos produtos executada com sucesso :)"
+        // );
       }
     );
   });
@@ -121,21 +121,21 @@ function obterVendaProduto(vendaId, produtoId) {
             vendaProdutos.push(vendaProduto);
           }
 
-          console.log(
-            "query de todos os produtos foi realizada! Qtde. produtos: " +
-              vendaProdutos.length
-          );
+          // console.log(
+          //   "query de todos os produtos foi realizada! Qtde. produtos: " +
+          //     vendaProdutos.length
+          // );
           resolve(vendaProdutos);
         });
       },
       (error) => {
-        console.log("erro ao selecionar todos os produtos: " + error);
+        // console.log("erro ao selecionar todos os produtos: " + error);
         resolve([]);
       },
       () => {
-        console.log(
-          "transação de recuperação dos produtos executada com sucesso :)"
-        );
+        // console.log(
+        //   "transação de recuperação dos produtos executada com sucesso :)"
+        // );
       }
     );
   });
