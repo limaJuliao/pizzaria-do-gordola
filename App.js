@@ -12,6 +12,7 @@ import FuncionariosScreen from "./telas/Funcionario";
 import ProdutosScreen from "./telas/Produtos";
 import CarrinhoScreen from "./telas/Carrinho";
 import CompraEfetivadaScreen from "./telas/CompraEfetivada";
+import VendasScreen from "./telas/Vendas";
 
 const Stack = createStackNavigator();
 createDataBase();
@@ -31,6 +32,7 @@ export default function App() {
           <Stack.Screen name="Funcionarios" component={FuncionariosScreen} />
           <Stack.Screen name="Produtos" component={ProdutosScreen} />
           <Stack.Screen name="Carrinho" component={CarrinhoScreen} />
+          <Stack.Screen name="Vendas" component={VendasScreen} />
           <Stack.Screen
             name="CompraEfetivada"
             component={CompraEfetivadaScreen}
@@ -47,7 +49,7 @@ function CustomNavigationBar({ navigation, back }) {
   const closeMenu = () => setVisible(false);
 
   return (
-    <Appbar.Header >
+    <Appbar.Header>
       {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
       <Appbar.Content title="PIZZARIA DO GORDOLA" />
       {!back ? (
@@ -69,6 +71,12 @@ function CustomNavigationBar({ navigation, back }) {
               navigation.navigate("Produtos");
             }}
             title="Produtos"
+          />
+          <Menu.Item
+            onPress={() => {
+              navigation.navigate("Vendas");
+            }}
+            title="Pedidos"
           />
         </Menu>
       ) : null}
